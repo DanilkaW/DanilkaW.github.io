@@ -10,7 +10,6 @@ val appContainer =
         { state, _->
             questions = state.questions
             category = state.category
-            currentCategory = state.currentCategory
         },
         {
             pure = false  // side effect of React Route

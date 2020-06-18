@@ -1,3 +1,6 @@
 package redux
 
-class ChangeCategory(val category: String): RAction
+import data.Question
+
+class AddQuestion(val question:Question):RAction
+class DeleteQuestion(val index: Int):RAction

@@ -18,12 +18,11 @@ import kotlin.dom.clear
 interface QuestionsProps : RProps {
     var questions: Map<Int, Question>
     var category: Array<Category>
-    var currentCategory: String
-    var onClick: (String) ->Unit
 }
 
 val fQuestions =
         functionalComponent<QuestionsProps> {props->
+            val (currentCategory, setCategory) = useState("География")
            div{
                h2 {
                    +"Выберете категорию вопросов"
@@ -36,14 +35,12 @@ val fQuestions =
                        }
                        attrs.onChangeFunction = {
                            val categoryHtml = document.getElementById("category") as HTMLSelectElement
-                           props.onClick(categoryHtml.value)
+                           setCategory(categoryHtml.value)
                        }
                    }
                }
-
-
                    props.questions.values.map { question ->
-                       if(question.category==props.currentCategory){
+                       if(question.category==currentCategory){
                            h3 { +question.name }
                            table {
                               question.text.map { text->
@@ -76,14 +73,10 @@ val fQuestions =
            }}
 fun RBuilder.questions(
         questions: Map<Int, Question>,
-        category: Array<Category>,
-        currentCategory: String,
-        onClick: (String) ->Unit
+        category: Array<Category>
 ) = child(
         withDisplayName("Questions", fQuestions)
 ) {
     attrs.questions = questions
     attrs.category = category
-    attrs.currentCategory = currentCategory
-    attrs.onClick = onClick
 }

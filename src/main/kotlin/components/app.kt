@@ -1,6 +1,6 @@
 package components
 
-import container.questionsContainer
+import container.redactContainer
 import data.Category
 import data.Question
 import kotlinx.html.id
@@ -17,14 +17,13 @@ import kotlin.browser.document
 interface AppProps : RProps {
     var questions: Map<Int, Question>
     var category: Array<Category>
-    var currentCategory: String
 }
     interface RouteNumberResult : RProps {
         var number: String
     }
 
     fun fApp() =
-        functionalComponent<AppProps> { _ ->
+        functionalComponent<AppProps> { props ->
             div("home") {
                 h1 {
                     +"Редактирование вопросов"
@@ -32,11 +31,18 @@ interface AppProps : RProps {
                 navLink(className = "nav", to = "/questions") {
                     +"Перейти к списку вопросов"
                 }
+                navLink(className = "nav", to = "/edit") {
+                    +"Редактирование вопросов"
+                }
 
                 switch {
                     route("/questions",
                             exact = true,
-                            render = { questionsContainer{} }
+                            render = { questions(props.questions, props.category) }
+                    )
+                    route("/edit",
+                            exact = true,
+                            render = { redactContainer {}}
                     )
                 }
             }
