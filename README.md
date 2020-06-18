@@ -1,3 +1,3 @@
 # Course_Work
 
-<a href="https://DanilkaW.github.io" target="_blank">Здесь можно проверить работу приложения</a>
+<a href="https://DanilkaW.github.io">Здесь можно проверить работу приложения</a>
